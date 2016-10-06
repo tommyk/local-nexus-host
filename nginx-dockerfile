@@ -2,5 +2,4 @@ FROM nginx
 RUN rm -rf /etc/nginx/conf.d/*.conf
 COPY nginx.conf /etc/nginx/conf.d/ssl.conf
 RUN mkdir /etc/nginx/ssl \
-	&& openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=US/ST=OH/L=Columbus/O=nexushost/OU=IT/CN=nexushost" \
-	&& service nginx restart
+	&& openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=US/ST=OH/L=Columbus/O=nexushost/OU=IT/CN=nexushost"
