@@ -3,7 +3,7 @@ services:
   nexus:
     image: sonatype/nexus3
     volumes:
-      - /nexus-data:/nexus-data
+      - /nexus-data
     restart: always
   nginx:
     build:
