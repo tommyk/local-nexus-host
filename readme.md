@@ -41,3 +41,28 @@ Revisiting the site should show your changes at this point.
 
 ## Persistent data
 todo: explain where it is stored
+
+## Registries
+
+
+### docker
+
+todo: get docker registries to be created at startup!
+
+There are 3 docker repositories running (see below).  The group aggregates the other two, one of which is a proxy to the public dockerhub repo, and the other is an internal docker repo for your private.  This is what most clients would point to, where as your CI server would build and upload containers to the internal repo. 
+
+- group : 5000
+	- proxy
+	- internal : 5001
+
+You need to pull the certificate that gets created into your docker configuration.  Use the command below to pull the certificate and then login.
+
+OSX
+```
+echo -n | openssl s_client -connect docker.nexushost:443 -showcerts -servername docker.nexushost | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /etc/docker/certs.d/docker.nexushost/ca.crt
+
+docker login docker.nexushost # or internal.docker.nexushost
+
+docker pull docker.nexushost/nginx:alpine #will hit proxy and cache this image
+```
+

@@ -2,4 +2,9 @@ FROM nginx
 RUN rm -rf /etc/nginx/conf.d/*.conf
 COPY nginx.conf /etc/nginx/conf.d/ssl.conf
 RUN mkdir /etc/nginx/ssl \
-	&& openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=US/ST=OH/L=Columbus/O=nexushost/OU=IT/CN=nexushost"
+	&& openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=US/ST=OH/L=Columbus/O=nexushost/OU=IT/CN=nexushost" \
+	&& openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/docker.key -out /etc/nginx/ssl/docker.crt -subj "/C=US/ST=OH/L=Columbus/O=nexushost/OU=IT/CN=docker.nexushost" \
+ 	&& openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/int.docker.key -out /etc/nginx/ssl/int.docker.crt -subj "/C=US/ST=OH/L=Columbus/O=nexushost/OU=IT/CN=internal.docker.nexushost"
+
+# Example of subjectAltName
+#RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/docker.key -out /etc/nginx/ssl/docker.crt -subj #"/C=US/ST=OH/L=Columbus/O=nexushost/OU=IT/CN=docker.nexushost/subjectAltName=DNS.1=docker.nexushost,DNS.2=nexushost" 
